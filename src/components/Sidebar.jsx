@@ -82,7 +82,7 @@ const Sidebar = ({ isOpen, setIsOpen }) => {
                     </nav>
 
                     {/* Bottom Actions */}
-                    <div className="p-4 border-t border-gray-100 space-y-2">
+                    <div className={`${isOpen ? 'flex' : 'block'} p-4 border-t border-gray-100 space-y-2 `}>
                         <button
                             onClick={logout}
                             className="w-full flex items-center px-4 py-3.5 text-gray-500 hover:bg-red-50 hover:text-red-600 rounded-2xl transition-all group relative"

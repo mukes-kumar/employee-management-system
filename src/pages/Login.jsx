@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { useAuth } from '../context/AuthContext';
-import { Lock, Mail, Loader2 } from 'lucide-react';
+import { Lock, Mail, Loader2, Users, ArrowRight } from 'lucide-react';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -30,86 +30,184 @@ const Login = () => {
     };
 
     return (
-        <div className="min-h-screen bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 flex items-center justify-center p-4">
+        <div className="relative min-h-screen bg-[#0f172a] flex items-center justify-center p-4 overflow-hidden">
+            {/* Animated Background Elements */}
+            <div className="absolute inset-0 z-0">
+                <motion.div
+                    animate={{
+                        scale: [1, 1.2, 1],
+                        rotate: [0, 90, 0],
+                        x: [0, 100, 0],
+                        y: [0, 50, 0],
+                    }}
+                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
+                    className="absolute -top-24 -left-24 w-96 h-96 bg-indigo-600/20 rounded-full blur-3xl"
+                />
+                <motion.div
+                    animate={{
+                        scale: [1, 1.3, 1],
+                        rotate: [0, -120, 0],
+                        x: [0, -150, 0],
+                        y: [0, 100, 0],
+                    }}
+                    transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
+                    className="absolute -bottom-48 -right-48 w-[500px] h-[500px] bg-purple-600/10 rounded-full blur-3xl"
+                />
+                <div className="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-10"></div>
+            </div>
+
             <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5 }}
-                className="bg-white/95 backdrop-blur-sm p-8 rounded-2xl shadow-2xl w-full max-w-md"
+                initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                animate={{ opacity: 1, scale: 1, y: 0 }}
+                transition={{ duration: 0.8, ease: "easeOut" }}
+                className="relative z-10 w-full max-w-[440px]"
             >
-                <div className="text-center mb-8">
+                <div className="bg-white/[0.02] backdrop-blur-2xl p-8 md:p-10 rounded-[2.5rem] border border-white/10 shadow-[0_32px_64px_-16px_rgba(0,0,0,0.5)] overflow-hidden group">
+                    {/* Inner Glow */}
+                    <div className="absolute inset-0 bg-gradient-to-br from-indigo-500/5 to-transparent pointer-events-none"></div>
+
+                    <div className="text-center mb-10 relative">
+                        <motion.div
+                            initial={{ scale: 0, rotate: -45 }}
+                            animate={{ scale: 1, rotate: 0 }}
+                            transition={{ type: 'spring', stiffness: 200, damping: 15, delay: 0.3 }}
+                            className="w-20 h-20 bg-indigo-600 rounded-3xl flex items-center justify-center mx-auto mb-6 shadow-2xl shadow-indigo-500/20 relative"
+                        >
+                            <Users className="text-white w-10 h-10" />
+                            <motion.div
+                                animate={{ scale: [1, 1.2, 1] }}
+                                transition={{ duration: 2, repeat: Infinity }}
+                                className="absolute -inset-1 bg-indigo-600/30 rounded-3xl blur-md -z-10"
+                            ></motion.div>
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ opacity: 0, y: 10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.5 }}
+                        >
+                            <h1 className="text-3xl font-extrabold text-white tracking-tight mb-2">Employee Management System</h1>
+                            <p className="text-indigo-200/60 font-medium tracking-wide text-sm uppercase">Secure Enterprise Portal</p>
+                        </motion.div>
+                    </div>
+
+                    <form onSubmit={handleSubmit} className="space-y-6 relative">
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.7 }}
+                        >
+                            <label className="block text-xs font-bold text-indigo-200/50 uppercase tracking-widest mb-2 ml-1">Work Email</label>
+                            <div className="relative group/input">
+                                <Mail className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within/input:text-indigo-400 transition-colors w-5 h-5" />
+                                <input
+                                    type="email"
+                                    required
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
+                                    className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-gray-500 focus:bg-white/[0.08] focus:border-indigo-500/50 outline-none transition-all"
+                                    placeholder="Enter your email"
+                                />
+                            </div>
+                        </motion.div>
+
+                        <motion.div
+                            initial={{ opacity: 0, x: -20 }}
+                            animate={{ opacity: 1, x: 0 }}
+                            transition={{ delay: 0.8 }}
+                        >
+                            <div className="flex justify-between items-center mb-2 ml-1">
+                                <label className="block text-xs font-bold text-indigo-200/50 uppercase tracking-widest">Password</label>
+                                <span className="text-[10px] font-bold text-indigo-400 cursor-pointer hover:underline uppercase tracking-tighter">Forgot?</span>
+                            </div>
+                            <div className="relative group/input">
+                                <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 group-focus-within/input:text-indigo-400 transition-colors w-5 h-5" />
+                                <input
+                                    type="password"
+                                    required
+                                    value={password}
+                                    onChange={(e) => setPassword(e.target.value)}
+                                    className="w-full pl-12 pr-4 py-4 bg-white/5 border border-white/10 rounded-2xl text-white placeholder-gray-500 focus:bg-white/[0.08] focus:border-indigo-500/50 outline-none transition-all"
+                                    placeholder="••••••••"
+                                />
+                            </div>
+                        </motion.div>
+
+                        {error && (
+                            <motion.div
+                                initial={{ opacity: 0, height: 0 }}
+                                animate={{ opacity: 1, height: 'auto' }}
+                                className="bg-red-500/10 border border-red-500/20 py-3 px-4 rounded-xl"
+                            >
+                                <p className="text-red-400 text-[10px] font-bold text-center uppercase tracking-wider">
+                                    {error}
+                                </p>
+                            </motion.div>
+                        )}
+
+                        <motion.button
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 1 }}
+                            whileHover={{ scale: 1.02, backgroundColor: '#4338ca' }}
+                            whileTap={{ scale: 0.98 }}
+                            disabled={isSubmitting}
+                            className="w-full bg-indigo-600 text-white font-extrabold py-4 rounded-2xl shadow-xl shadow-indigo-600/20 transition-all flex items-center justify-center gap-2 group/btn"
+                        >
+                            {isSubmitting ? (
+                                <>
+                                    <Loader2 className="w-5 h-5 animate-spin" />
+                                    <span className="uppercase tracking-widest text-xs">Verifying...</span>
+                                </>
+                            ) : (
+                                <>
+                                    <span className="uppercase tracking-widest text-xs">Enter System</span>
+                                    <div className="w-5 h-5 rounded-full bg-white/20 flex items-center justify-center group-hover/btn:translate-x-1 transition-transform">
+                                        <ArrowRight className="w-3 h-3" />
+                                    </div>
+                                </>
+                            )}
+                        </motion.button>
+                    </form>
+
                     <motion.div
-                        initial={{ scale: 0 }}
-                        animate={{ scale: 1 }}
-                        transition={{ type: 'spring', stiffness: 260, damping: 20, delay: 0.2 }}
-                        className="w-20 h-20 bg-indigo-600 rounded-2xl flex items-center justify-center mx-auto mb-4 shadow-lg rotate-3"
+                        initial={{ opacity: 0 }}
+                        animate={{ opacity: 1 }}
+                        transition={{ delay: 1.2 }}
+                        className="mt-10 pt-8 border-t border-white/5"
                     >
-                        <Lock className="text-white w-10 h-10" />
+                        <button
+                            type="button"
+                            onClick={() => {
+                                setEmail('admin@ems.com');
+                                setPassword('admin123');
+                                setTimeout(() => {
+                                    const form = document.querySelector('form');
+                                    form.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+                                }, 100);
+                            }}
+                            className="w-full group/demo relative overflow-hidden bg-white/5 hover:bg-white/10 border border-white/10 rounded-2xl p-4 transition-all duration-300"
+                        >
+                            <div className="flex items-center justify-between relative z-10">
+                                <div className="text-left">
+                                    <p className="text-[10px] text-indigo-400 font-bold uppercase tracking-widest mb-0.5">Quick Access</p>
+                                    <p className="text-sm text-white font-extrabold">Skip to Dashboard</p>
+                                </div>
+                                <div className="w-10 h-10 bg-indigo-600/20 group-hover/demo:bg-indigo-600 rounded-xl flex items-center justify-center transition-all duration-300">
+                                    <ArrowRight className="text-white w-5 h-5 group-hover/demo:translate-x-1 transition-transform" />
+                                </div>
+                            </div>
+                            {/* Decorative background pulse */}
+                            <div className="absolute inset-0 bg-gradient-to-r from-indigo-500/0 via-indigo-500/5 to-indigo-500/0 -translate-x-full group-hover/demo:translate-x-full transition-transform duration-1000"></div>
+                        </button>
                     </motion.div>
-                    <h1 className="text-3xl font-bold text-gray-800">Welcome Back</h1>
-                    <p className="text-gray-500 mt-2">Manage your workforce with ease</p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="space-y-6">
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Email Address</label>
-                        <div className="relative">
-                            <Mail className="absolute left-3 top-3.5 text-gray-400 w-5 h-5" />
-                            <input
-                                type="email"
-                                required
-                                value={email}
-                                onChange={(e) => setEmail(e.target.value)}
-                                className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
-                                placeholder="name@company.com"
-                            />
-                        </div>
-                    </div>
-
-                    <div>
-                        <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
-                        <div className="relative">
-                            <Lock className="absolute left-3 top-3.5 text-gray-400 w-5 h-5" />
-                            <input
-                                type="password"
-                                required
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                                className="w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-200 rounded-xl focus:ring-2 focus:ring-indigo-500 focus:border-transparent outline-none transition-all"
-                                placeholder="••••••••"
-                            />
-                        </div>
-                    </div>
-
-                    {error && (
-                        <motion.p
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            className="text-red-500 text-sm text-center font-medium"
-                        >
-                            {error}
-                        </motion.p>
-                    )}
-
-                    <motion.button
-                        whileHover={{ scale: 1.02 }}
-                        whileTap={{ scale: 0.98 }}
-                        disabled={isSubmitting}
-                        className="w-full bg-indigo-600 hover:bg-indigo-700 text-white font-bold py-3 rounded-xl shadow-lg shadow-indigo-200 transition-all flex items-center justify-center gap-2"
-                    >
-                        {isSubmitting ? (
-                            <>
-                                <Loader2 className="w-5 h-5 animate-spin" />
-                                Signing in...
-                            </>
-                        ) : (
-                            'Sign In'
-                        )}
-                    </motion.button>
-                </form>
-
-                <div className="mt-8 text-center text-sm text-gray-500">
-                    <p>Don't have an account? <span className="text-indigo-600 font-semibold cursor-pointer hover:underline">Contact HR</span></p>
+                {/* Bottom decorative line */}
+                <div className="mt-8 flex justify-center gap-4">
+                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-600"></div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-600/30"></div>
+                    <div className="w-1.5 h-1.5 rounded-full bg-indigo-600/10"></div>
                 </div>
             </motion.div>
         </div>
