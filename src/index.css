@@ -1,0 +1,125 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+    .scrollbar-hide::-webkit-scrollbar {
+        display: none;
+    }
+
+    .scrollbar-hide {
+        -ms-overflow-style: none;
+        scrollbar-width: none;
+    }
+}
+
+body {
+    @apply antialiased text-gray-800 bg-gray-50;
+    font-feature-settings: "cv02", "cv03", "cv04", "cv11";
+}
+
+@media print {
+
+    /* Reset all possible hidden states */
+    * {
+        print-color-adjust: exact !important;
+        -webkit-print-color-adjust: exact !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        transform: none !important;
+        filter: none !important;
+        animation: none !important;
+        transition: none !important;
+    }
+
+    /* Hide all UI elements */
+    aside,
+    header,
+    button,
+    .no-print,
+    [role="button"],
+    #sidebar-overlay {
+        display: none !important;
+    }
+
+    /* Reset background and layout for print */
+    html,
+    body {
+        background: white !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        color: black !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+
+    /* Ensure main content takes full width and is visible */
+    main,
+    .flex-1,
+    .max-w-\[1600px\],
+    #root {
+        margin: 0 !important;
+        padding: 0 !important;
+        max-width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+        display: block !important;
+    }
+
+    /* Force the printed element to be visible */
+    .printable-content {
+        display: block !important;
+        width: 100% !important;
+    }
+
+    /* Format table for professional print */
+    table {
+        width: 100% !important;
+        border-collapse: collapse !important;
+        page-break-inside: auto !important;
+    }
+
+    tr {
+        page-break-inside: avoid !important;
+        page-break-after: auto !important;
+    }
+
+    th,
+    td {
+        border-bottom: 1px solid #eee !important;
+        padding: 12px 8px !important;
+        text-align: left !important;
+        color: black !important;
+    }
+
+    /* Ensure profile images show in print */
+    img {
+        max-width: 40px !important;
+        max-height: 40px !important;
+        border-radius: 8px !important;
+    }
+
+    /* Header for the printed report */
+    .print-header {
+        display: block !important;
+        margin-bottom: 30px !important;
+        padding-bottom: 15px !important;
+        border-bottom: 3px solid #000 !important;
+    }
+
+    .print-header h1 {
+        font-size: 26pt !important;
+        font-weight: 800 !important;
+        margin: 0 !important;
+    }
+
+    .print-header p {
+        font-size: 11pt !important;
+        color: #333 !important;
+        margin: 5px 0 0 0 !important;
+    }
+}
+
+.print-header {
+    display: none;
+}
